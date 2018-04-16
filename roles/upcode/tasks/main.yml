@@ -1,8 +1,0 @@
-- name: stop nginx
-  command:  /application/nginx/sbin/nginx -s stop
-  ignore_errors: yes
-- name: copy file to ROOT
-  copy: src=/disk1/nginx/html/ dest=/application/nginx/html
-- name: start nginx
-  command: /application/nginx/sbin/nginx
-
