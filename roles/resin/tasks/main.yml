@@ -1,0 +1,12 @@
+- name: stop resin server
+  shell: "/application/resin-4.0.55/bin/resin.sh shutdown"
+- name: del old backup files
+  file: path=/application/resin-4.0.55/webapps/jenkins.bak state=absent
+- name: del old war files
+  file: path=/application/resin-4.0.55/webapps/jenkins.war state=absent
+- name: backup old files
+  command: mv /application/resin-4.0.55/webapps/jenkins /application/resin-4.0.55/webapps/jenkins.bak
+- name: copy new files to ROOT
+  copy: src=/tmp/jenkins.war dest=/application/resin-4.0.55/webapps/jenkins.war
+- name: start resin server
+  shell: "nohup /application/resin-4.0.55/bin/resin.sh start"

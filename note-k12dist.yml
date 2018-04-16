@@ -1,0 +1,5 @@
+- hosts: note001 note002
+  remote_user: cloudop
+  roles: 
+  - note-k12
+

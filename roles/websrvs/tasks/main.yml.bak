@@ -1,0 +1,66 @@
+- name: download nginx
+  get_url: 
+    url: http://nginx.org/download/nginx-1.10.2.tar.gz
+    dest: /tools/
+#- name: download openssl
+#  get_url:
+#    url: http://www.openssl.org/source/openssl-fips-2.0.10.tar.gz
+#    dest: /tools
+#- name: down zlib
+#  get_url: 
+#    url: http://zlib.net/zlib-1.2.11.tar.gz
+#    dest: /tools
+#- name: down pcre
+#  get_url: 
+#    url: https://ftp.pcre.org/pub/pcre/pcre-8.40.tar.gz
+#    dest: /tools
+- name: install pcre
+  yum: name=pcre state=present
+- name: install pcre-devel
+  yum: name=pcre-devel state=present
+- name: install gcc
+  yum: name=gcc state=present
+- name: install gcc-c++
+  yum: name=gcc-c++ state=present
+- name: install openssl
+  yum: name=openssl state=present
+- name: install openssl-devel
+  yum: name=openssl-devel state=present
+- name: install zlib
+  yum: name=zlib state=present
+- name: unarchive nginx
+  unarchive:
+    copy: no
+    src: /tools/nginx-1.10.2.tar.gz
+    dest: /application/
+#- name: unar openssl
+#  unarchive:
+#    copy: no 
+#    src: /tools/openssl-fips-2.0.10.tar.gz
+#    dest: /application
+#- name: unar pcre
+#  unarchive:
+#    copy: no
+#    src: /tools/pcre-8.40.tar.gz
+#    dest: /application/
+#- name: unar zlib
+#  unarchive:
+#    copy: no 
+#    src: /tools/zlib-1.2.11.tar.gz
+#    dest: /application/
+#- name: install openssl
+#  raw: cd /application/openssl-fips-2.0.10 && ./config && make && make install
+#- name: install pcre
+#  raw: cd /application/pcre-8.40 && ./configure --prefix=/application/pcre && make && make install
+#- name: install zlib
+#  raw: cd /application/zlib-1.2.11 && ./configure --prefix=application/zlib && make && make install
+- name: useradd nginx
+  user: name=nginx state=present
+- name: install nginx
+  raw: cd /application/nginx-1.10.2 && ./configure --user=nginx --group=nginx --prefix=/application/nginx --with-http_stub_status_module --with-http_ssl_module && make && make install
+
+- name: start nginx
+  raw:  /application/nginx/sbin/nginx 
+- name: stop iptables
+  service: name=iptables state=stopped
+
