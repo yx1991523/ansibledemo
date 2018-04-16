@@ -1,4 +1,4 @@
-- hosts: '{{ hosts }}'
+- hosts: 192.168.254.133
   remote_user: root
   roles: 
   - websrvs

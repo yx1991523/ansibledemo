@@ -1,9 +1,11 @@
-- name: backup yum-repo
-  raw: mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-- name: down 163yum repo
-  raw: wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo
-- name: yum makecache
-  raw: yum makecache
+- name: install wget
+  yum: name=wget state=present
+#- name: backup yum-repo
+#  raw: mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+#- name: down 163yum repo
+#  raw: wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.163.com/.help/CentOS6-Base-163.repo
+#- name: yum makecache
+#  raw: yum makecache
 - name: create directory
   file: path={{ item.path }} state=directory
   with_items: 
