@@ -76,6 +76,7 @@
 
 - name: start nginx
   raw:  /application/nginx/sbin/nginx 
+  ignore_errors: True
 - name: stop iptables
   service: name=iptables state=stopped
 
